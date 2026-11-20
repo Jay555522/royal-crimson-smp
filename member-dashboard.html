@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Royal Crimson SMP - Member Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #160d12;
+      color: white;
+      text-align: center;
+    }
+    header {
+      background: #8b102d;
+      padding: 30px 15px;
+    }
+    h1 { margin: 0; }
+    main {
+      max-width: 750px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    .panel {
+      background: #2b1922;
+      padding: 25px;
+      margin: 20px 0;
+      border-radius: 12px;
+    }
+    a {
+      color: #ffb6c8;
+      margin: 10px;
+    }
+    button {
+      background: #b51d43;
+      color: white;
+      border: 0;
+      padding: 12px 24px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>👑 Royal Crimson SMP</h1>
+    <p>Official Member Dashboard</p>
+  </header>
+
+  <main>
+    <div class="panel">
+      <h2>Welcome, Member!</h2>
+      <p id="member-email">Loading account...</p>
+    </div>
+
+    <div class="panel">
+      <h2>Kingdoms</h2>
+      <p>Explore the kingdoms of Royal Crimson SMP.</p>
+      <a href="reigm-empire.html">Reigm Empire</a>
+      <a href="zephyrial-empire.html">Zephyrial Empire</a>
+      <a href="endoria.html">Endoria</a>
+    </div>
+
+    <div class="panel">
+      <h2>Announcements</h2>
+      <p>Welcome to the Royal Crimson SMP member area!</p>
+    </div>
+
+    <button id="logout-button">Sign Out</button>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="firebase-auth.js"></script>
+
+  <script>
+    auth.onAuthStateChanged(function(user) {
+      if (user) {
+        document.getElementById("member-email").textContent = user.email;
+      } else {
+        window.location.href = "member-login.html";
+      }
+    });
+
+    document.getElementById("logout-button").addEventListener("click", function() {
+      auth.signOut().then(function() {
+        window.location.href = "member-login.html";
+      });
+    });
+  </script>
+</body>
+</html>
