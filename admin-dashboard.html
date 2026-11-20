@@ -80,6 +80,7 @@
 
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
   <script src="firebase-auth.js"></script>
 
   <script>
@@ -110,7 +111,41 @@
       auth.signOut().then(function() {
         window.location.href = "member-login.html";
       });
+    });// Load official announcements
+const announcementsList = document.getElementById("announcements-list");
+
+db = firebase.firestore();
+
+db.collection("announcements")
+  .orderBy("createdAt")
+  .get()
+  .then(function(snapshot) {
+    announcementsList.innerHTML = "";
+
+    if (snapshot.empty) {
+      announcementsList.textContent = "No announcements yet.";
+      return;
+    }
+
+    snapshot.forEach(function(doc) {
+      const announcement = doc.data();
+
+      const item = document.createElement("div");
+      const title = document.createElement("h3");
+      const message = document.createElement("p");
+
+      title.textContent = announcement.title || "Announcement";
+      message.textContent = announcement.message || "";
+
+      item.appendChild(title);
+      item.appendChild(message);
+      announcementsList.appendChild(item);
     });
+  })
+  .catch(function(error) {
+    announcementsList.textContent = "Unable to load announcements.";
+    console.error(error);
+  });    
   </script>
 </body>
 </html>
