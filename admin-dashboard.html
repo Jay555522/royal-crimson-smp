@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Royal Crimson SMP - Admin Dashboard</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #160d12;
+      color: white;
+      text-align: center;
+    }
+
+    header {
+      background: #8b102d;
+      padding: 30px 15px;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .panel {
+      background: #2b1922;
+      padding: 25px;
+      margin: 20px 0;
+      border-radius: 12px;
+    }
+
+    button {
+      background: #b51d43;
+      color: white;
+      border: 0;
+      padding: 12px 24px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>👑 Royal Crimson SMP</h1>
+    <p>Official Administration Dashboard</p>
+  </header>
+
+  <main id="admin-content" style="display:none;">
+    <div class="panel">
+      <h2>Welcome, Administrator!</h2>
+      <p id="admin-email">Checking account...</p>
+    </div>
+
+    <div class="panel">
+      <h2>Website Administration</h2>
+      <p>Manage the Royal Crimson SMP website.</p>
+    </div>
+
+    <div class="panel">
+      <h2>Kingdom Administration</h2>
+      <p>Reigm Empire</p>
+      <p>Zephyrial Empire</p>
+      <p>Endoria</p>
+    </div>
+
+    <div class="panel">
+      <h2>Member Announcements</h2>
+      <p>Administration announcement tools will be added here.</p>
+    </div>
+
+    <button id="logout-button">Sign Out</button>
+  </main>
+
+  <p id="access-message">Checking administrator access...</p>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="firebase-auth.js"></script>
+
+  <script>
+    auth.onAuthStateChanged(async function(user) {
+      if (!user) {
+        window.location.href = "member-login.html";
+        return;
+      }
+
+      try {
+        const token = await user.getIdTokenResult(true);
+
+        if (token.claims.admin === true) {
+          document.getElementById("admin-email").textContent = user.email;
+          document.getElementById("admin-content").style.display = "block";
+          document.getElementById("access-message").style.display = "none";
+        } else {
+          document.getElementById("access-message").textContent =
+            "Access denied. Administrator permission required.";
+        }
+      } catch (error) {
+        document.getElementById("access-message").textContent =
+          "Unable to verify administrator access.";
+      }
+    });
+
+    document.getElementById("logout-button").addEventListener("click", function() {
+      auth.signOut().then(function() {
+        window.location.href = "member-login.html";
+      });
+    });
+  </script>
+</body>
+</html>
