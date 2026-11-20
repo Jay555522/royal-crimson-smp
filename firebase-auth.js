@@ -27,6 +27,7 @@ document.getElementById("login-form").addEventListener("submit", function(e) {
   auth.signInWithEmailAndPassword(email, password)
     .then(() => {
       alert("Welcome back to Royal Crimson SMP!");
+      window.location.href = "member-dashboard.html";
     })
     .catch(error => {
       alert(error.message);
