@@ -17,3 +17,34 @@ if (!firebase.apps.length) {
 const auth = firebase.auth();
 
 console.log("Royal Crimson SMP Firebase connected!");
+// Member Login
+document.getElementById("login-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  auth.signInWithEmailAndPassword(email, password)
+    .then(() => {
+      alert("Welcome back to Royal Crimson SMP!");
+    })
+    .catch(error => {
+      alert(error.message);
+    });
+});
+
+// Create Account
+document.getElementById("signup-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const email = document.getElementById("new-email").value;
+  const password = document.getElementById("new-password").value;
+
+  auth.createUserWithEmailAndPassword(email, password)
+    .then(() => {
+      alert("Your Royal Crimson SMP account has been created!");
+    })
+    .catch(error => {
+      alert(error.message);
+    });
+});
