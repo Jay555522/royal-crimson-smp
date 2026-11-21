@@ -255,6 +255,12 @@
     <p>View and manage announcements published to members.</p>
 
     <div id="announcement-list">
+      <input
+  type="search"
+  id="announcement-search"
+  placeholder="🔍 Search announcements by title or message..."
+  aria-label="Search announcements"
+>
       <p>Loading announcements...</p>
     </div>
   </section>
@@ -361,6 +367,8 @@ async function loadAnnouncements() {
       const data = doc.data();
 
       const item = document.createElement("div");
+      item.dataset.searchText =
+  ((data.title || "") + " " + (data.message || "")).toLowerCase();
       item.style.background = "#351b28";
       item.style.border = "1px solid #81502e";
       item.style.borderRadius = "9px";
@@ -436,6 +444,16 @@ async function loadAnnouncements() {
     list.innerHTML = "<p>Unable to load announcements. Please refresh the page.</p>";
   }
 }
+  // Search announcements
+document.getElementById("announcement-search").addEventListener("input", function() {
+  const searchText = this.value.toLowerCase().trim();
+  const items = document.querySelectorAll("#announcement-list > div");
+
+  items.forEach(function(item) {
+    const matches = item.dataset.searchText.includes(searchText);
+    item.style.display = matches ? "block" : "none";
+  });
+});
 // Sign out
 document.getElementById("logout-button").addEventListener("click", function() {
   auth.signOut().then(function() {
