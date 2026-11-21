@@ -4,108 +4,310 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Royal Crimson SMP - Admin Dashboard</title>
+  <meta name="description" content="Official Royal Crimson SMP Administration Dashboard.">
+  <title>Administration Dashboard | Royal Crimson SMP</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #160d12;
-      color: white;
-      text-align: center;
+      font-family: Georgia, serif;
+      background: #12090e;
+      color: #f8edf0;
     }
 
     header {
-      background: #8b102d;
-      padding: 30px 15px;
+      background: linear-gradient(135deg, #650c25, #a51c3d);
+      padding: 35px 20px;
+      text-align: center;
+      border-bottom: 3px solid #d6ad57;
+    }
+
+    header h1 {
+      color: #ffe2a0;
+      margin: 0;
+      font-size: 32px;
+    }
+
+    header p {
+      color: #f8dce3;
+    }
+
+    nav {
+      background: #211019;
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid #68402c;
+    }
+
+    nav a {
+      color: #f5cf83;
+      text-decoration: none;
+      margin: 8px 12px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: white;
     }
 
     main {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 20px;
+      max-width: 950px;
+      margin: 35px auto;
+      padding: 15px;
+    }
+
+    .welcome {
+      background: linear-gradient(135deg, #351321, #64152c);
+      border: 1px solid #c59a4a;
+      border-radius: 14px;
+      padding: 30px 20px;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .welcome h2 {
+      color: #ffe0a0;
+      margin-top: 0;
     }
 
     .panel {
-      background: #2b1922;
-      padding: 25px;
-      margin: 20px 0;
+      background: #24141d;
+      border: 1px solid #65402e;
       border-radius: 12px;
+      padding: 25px;
+      margin: 22px 0;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.25);
+    }
+
+    .panel h2 {
+      color: #f2c66f;
+      border-bottom: 1px solid #65402e;
+      padding-bottom: 12px;
+      margin-top: 0;
+    }
+
+    .admin-email {
+      color: #ffd98a;
+      overflow-wrap: anywhere;
+    }
+
+    input, textarea {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      margin: 15px 0;
+      background: #160d12;
+      border: 1px solid #81502e;
+      border-radius: 7px;
+      color: white;
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    input:focus, textarea:focus {
+      outline: 2px solid #d6ad57;
     }
 
     button {
-      background: #b51d43;
+      background: #a51c3d;
       color: white;
-      border: 0;
-      padding: 12px 24px;
+      border: 1px solid #d6ad57;
+      padding: 13px 25px;
       border-radius: 7px;
+      font-size: 15px;
       cursor: pointer;
+    }
+
+    button:hover {
+      background: #c02b4e;
+    }
+
+    .kingdom-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 15px;
+    }
+
+    .kingdom-card {
+      background: #351b28;
+      border: 1px solid #81502e;
+      border-radius: 9px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .kingdom-card h3 {
+      color: #ffdc91;
+    }
+
+    .kingdom-card a {
+      color: #ffd98a;
+      text-decoration: none;
+    }
+
+    .kingdom-card a:hover {
+      color: white;
+    }
+
+    #announcement-status {
+      color: #f2c66f;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+
+    .signout {
+      display: block;
+      margin: 30px auto;
+    }
+
+    #access-message {
+      text-align: center;
+      padding: 30px 15px;
+      color: #f2c66f;
+    }
+
+    footer {
+      background: #211019;
+      border-top: 2px solid #d6ad57;
+      text-align: center;
+      padding: 25px 15px;
+      color: #d8bdc6;
+      margin-top: 45px;
+    }
+
+    footer strong {
+      color: #f2c66f;
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <h1>👑 Royal Crimson SMP</h1>
-    <p>Official Administration Dashboard</p>
-  </header>
 
-  <main id="admin-content" style="display:none;">
-    <div class="panel">
-      <h2>Welcome, Administrator!</h2>
-      <p id="admin-email">Checking account...</p>
+<header>
+  <h1>👑 Royal Crimson SMP</h1>
+  <p>Official Administration Portal</p>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="member-dashboard.html">Member Dashboard</a>
+  <a href="reigm-empire.html">Reigm</a>
+  <a href="zephyrial-empire.html">Zephyrial</a>
+  <a href="endoria.html">Endoria</a>
+  <a href="security-team.html">Security Team</a>
+</nav>
+
+<main id="admin-content" style="display:none;">
+
+  <section class="welcome">
+    <h2>Royal Administration Hall</h2>
+    <p>
+      Welcome to the official administration portal.
+      Manage announcements and access the kingdom pages
+      from one central location.
+    </p>
+  </section>
+
+  <section class="panel">
+    <h2>👑 Administrator Account</h2>
+    <p>Welcome, Administrator!</p>
+    <p class="admin-email" id="admin-email">Checking account...</p>
+    <p>Your administrator permissions have been verified.</p>
+  </section>
+
+  <section class="panel">
+    <h2>📢 Publish Official Announcement</h2>
+    <p>
+      Publish an announcement that will appear in the
+      member dashboard.
+    </p>
+
+    <input
+      type="text"
+      id="announcement-title"
+      placeholder="Enter announcement title"
+      maxlength="120"
+    >
+
+    <textarea
+      id="announcement-message"
+      placeholder="Write your official announcement here..."
+      maxlength="5000"
+    ></textarea>
+
+    <button id="publish-announcement">
+      Publish Announcement
+    </button>
+
+    <p id="announcement-status" role="status" aria-live="polite"></p>
+  </section>
+
+  <section class="panel">
+    <h2>🏰 Kingdom Administration</h2>
+    <p>Quick access to the official kingdom pages.</p>
+
+    <div class="kingdom-grid">
+
+      <article class="kingdom-card">
+        <h3>Reigm Empire</h3>
+        <a href="reigm-empire.html">Open Kingdom Page</a>
+      </article>
+
+      <article class="kingdom-card">
+        <h3>Zephyrial Empire</h3>
+        <a href="zephyrial-empire.html">Open Kingdom Page</a>
+      </article>
+
+      <article class="kingdom-card">
+        <h3>Endoria</h3>
+        <a href="endoria.html">Open Kingdom Page</a>
+      </article>
+
+      <article class="kingdom-card">
+        <h3>Royal SMP Security Team</h3>
+        <a href="security-team.html">Open Group Page</a>
+      </article>
+
     </div>
+  </section>
 
-    <div class="panel">
-      <h2>Website Administration</h2>
-      <p>Manage the Royal Crimson SMP website.</p>
-    </div>
-<div class="panel">
-  <h2>📢 Publish Official Announcement</h2>
+  <section class="panel">
+    <h2>🛡️ Administration Responsibilities</h2>
+    <p>
+      Keep official information accurate, publish important
+      announcements, and help maintain the Royal Crimson
+      SMP community.
+    </p>
+  </section>
 
-  <input
-    type="text"
-    id="announcement-title"
-    placeholder="Announcement title"
-    style="width:90%; padding:12px; margin:10px;"
-  >
+  <button class="signout" id="logout-button">Sign Out</button>
 
-  <textarea
-    id="announcement-message"
-    placeholder="Write your announcement here..."
-    style="width:90%; padding:12px; margin:10px; height:120px;"
-  ></textarea>
+</main>
 
-  <button id="publish-announcement">
-    Publish Announcement
-  </button>
+<p id="access-message">Checking administrator access...</p>
 
-  <p id="announcement-status"></p>
-</div>
-    <div class="panel">
-      <h2>Kingdom Administration</h2>
-      <p>Reigm Empire</p>
-      <p>Zephyrial Empire</p>
-      <p>Endoria</p>
-    </div>
+<footer>
+  <p><strong>The Royal Crimson SMP</strong></p>
+  <p>A Community of Kingdoms. A Legacy of Leadership.</p>
+  <small>By LegoMan1927</small>
+</footer>
 
-    <div class="panel">
-      <h2>Member Announcements</h2>
-      <p>Administration announcement tools will be added here.</p>
-    </div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-auth.js"></script>
 
-    <button id="logout-button">Sign Out</button>
-  </main>
+<script>
 
-  <p id="access-message">Checking administrator access...</p>
-
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-  <script src="firebase-auth.js"></script>
-
-  <script>
-  
 auth.onAuthStateChanged(async function(user) {
   if (!user) {
     window.location.href = "member-login.html";
@@ -130,10 +332,13 @@ auth.onAuthStateChanged(async function(user) {
   }
 });
 
-// Logout button
+// Sign out
 document.getElementById("logout-button").addEventListener("click", function() {
   auth.signOut().then(function() {
     window.location.href = "member-login.html";
+  }).catch(function(error) {
+    console.error(error);
+    alert("Unable to sign out. Please try again.");
   });
 });
 
@@ -142,9 +347,10 @@ document.getElementById("publish-announcement").addEventListener("click", async 
   const title = document.getElementById("announcement-title").value.trim();
   const message = document.getElementById("announcement-message").value.trim();
   const status = document.getElementById("announcement-status");
+  const publishButton = document.getElementById("publish-announcement");
 
   if (!title || !message) {
-    status.textContent = "Please enter a title and message.";
+    status.textContent = "Please enter both a title and a message.";
     return;
   }
 
@@ -154,6 +360,9 @@ document.getElementById("publish-announcement").addEventListener("click", async 
     status.textContent = "Please sign in first.";
     return;
   }
+
+  publishButton.disabled = true;
+  status.textContent = "Publishing announcement...";
 
   try {
     const token = await user.getIdTokenResult(true);
@@ -170,14 +379,19 @@ document.getElementById("publish-announcement").addEventListener("click", async 
     });
 
     status.textContent = "Announcement published successfully!";
+
     document.getElementById("announcement-title").value = "";
     document.getElementById("announcement-message").value = "";
 
   } catch (error) {
     console.error(error);
-    status.textContent = "Unable to publish announcement.";
+    status.textContent = "Unable to publish announcement. Please try again.";
+  } finally {
+    publishButton.disabled = false;
   }
 });
-  </script>
+
+</script>
+
 </body>
 </html>
