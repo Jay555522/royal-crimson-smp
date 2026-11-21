@@ -60,7 +60,28 @@
       <h2>Website Administration</h2>
       <p>Manage the Royal Crimson SMP website.</p>
     </div>
+<div class="panel">
+  <h2>📢 Publish Official Announcement</h2>
 
+  <input
+    type="text"
+    id="announcement-title"
+    placeholder="Announcement title"
+    style="width:90%; padding:12px; margin:10px;"
+  >
+
+  <textarea
+    id="announcement-message"
+    placeholder="Write your announcement here..."
+    style="width:90%; padding:12px; margin:10px; height:120px;"
+  ></textarea>
+
+  <button id="publish-announcement">
+    Publish Announcement
+  </button>
+
+  <p id="announcement-status"></p>
+</div>
     <div class="panel">
       <h2>Kingdom Administration</h2>
       <p>Reigm Empire</p>
@@ -84,68 +105,79 @@
   <script src="firebase-auth.js"></script>
 
   <script>
-    auth.onAuthStateChanged(async function(user) {
-      if (!user) {
-        window.location.href = "member-login.html";
-        return;
-      }
+  
+auth.onAuthStateChanged(async function(user) {
+  if (!user) {
+    window.location.href = "member-login.html";
+    return;
+  }
 
-      try {
-        const token = await user.getIdTokenResult(true);
+  try {
+    const token = await user.getIdTokenResult(true);
 
-        if (token.claims.admin === true) {
-          document.getElementById("admin-email").textContent = user.email;
-          document.getElementById("admin-content").style.display = "block";
-          document.getElementById("access-message").style.display = "none";
-        } else {
-          document.getElementById("access-message").textContent =
-            "Access denied. Administrator permission required.";
-        }
-      } catch (error) {
-        document.getElementById("access-message").textContent =
-          "Unable to verify administrator access.";
-      }
-    });
+    if (token.claims.admin === true) {
+      document.getElementById("admin-email").textContent = user.email;
+      document.getElementById("admin-content").style.display = "block";
+      document.getElementById("access-message").style.display = "none";
+    } else {
+      document.getElementById("access-message").textContent =
+        "Access denied. Administrator permission required.";
+    }
+  } catch (error) {
+    console.error(error);
+    document.getElementById("access-message").textContent =
+      "Unable to verify administrator access.";
+  }
+});
 
-    document.getElementById("logout-button").addEventListener("click", function() {
-      auth.signOut().then(function() {
-        window.location.href = "member-login.html";
-      });
-    });// Load official announcements
-const announcementsList = document.getElementById("announcements-list");
+// Logout button
+document.getElementById("logout-button").addEventListener("click", function() {
+  auth.signOut().then(function() {
+    window.location.href = "member-login.html";
+  });
+});
 
-db = firebase.firestore();
+// Publish an official announcement
+document.getElementById("publish-announcement").addEventListener("click", async function() {
+  const title = document.getElementById("announcement-title").value.trim();
+  const message = document.getElementById("announcement-message").value.trim();
+  const status = document.getElementById("announcement-status");
 
-db.collection("announcements")
-  .orderBy("createdAt")
-  .get()
-  .then(function(snapshot) {
-    announcementsList.innerHTML = "";
+  if (!title || !message) {
+    status.textContent = "Please enter a title and message.";
+    return;
+  }
 
-    if (snapshot.empty) {
-      announcementsList.textContent = "No announcements yet.";
+  const user = auth.currentUser;
+
+  if (!user) {
+    status.textContent = "Please sign in first.";
+    return;
+  }
+
+  try {
+    const token = await user.getIdTokenResult(true);
+
+    if (token.claims.admin !== true) {
+      status.textContent = "Administrator access required.";
       return;
     }
 
-    snapshot.forEach(function(doc) {
-      const announcement = doc.data();
-
-      const item = document.createElement("div");
-      const title = document.createElement("h3");
-      const message = document.createElement("p");
-
-      title.textContent = announcement.title || "Announcement";
-      message.textContent = announcement.message || "";
-
-      item.appendChild(title);
-      item.appendChild(message);
-      announcementsList.appendChild(item);
+    await firebase.firestore().collection("announcements").add({
+      title: title,
+      message: message,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
     });
-  })
-  .catch(function(error) {
-    announcementsList.textContent = "Unable to load announcements.";
+
+    status.textContent = "Announcement published successfully!";
+    document.getElementById("announcement-title").value = "";
+    document.getElementById("announcement-message").value = "";
+
+  } catch (error) {
     console.error(error);
-  });    
+    status.textContent = "Unable to publish announcement.";
+  }
+});
   </script>
 </body>
 </html>
