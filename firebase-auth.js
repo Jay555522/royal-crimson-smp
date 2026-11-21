@@ -25,10 +25,17 @@ document.getElementById("login-form").addEventListener("submit", function(e) {
   const password = document.getElementById("password").value;
 
   auth.signInWithEmailAndPassword(email, password)
-    .then(() => {
-      alert("Welcome back to Royal Crimson SMP!");
-      window.location.href = "member-dashboard.html";
-    })
+   .then(async (credential) => {
+  alert("Welcome back to Royal Crimson SMP!");
+
+  const token = await credential.user.getIdTokenResult(true);
+
+  if (token.claims.admin === true) {
+    window.location.href = "admin-dashboard.html";
+  } else {
+    window.location.href = "member-dashboard.html";
+  }
+})
     .catch(error => {
       alert(error.message);
     });
