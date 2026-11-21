@@ -29,7 +29,7 @@ document.getElementById("login-form").addEventListener("submit", function(e) {
   alert("Welcome back to Royal Crimson SMP!");
 
   const token = await credential.user.getIdTokenResult(true);
-
+alert("Administrator permission: " + token.claims.admin);
   if (token.claims.admin === true) {
     window.location.href = "admin-dashboard.html";
   } else {
