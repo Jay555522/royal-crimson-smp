@@ -100,8 +100,12 @@ if (signupForm) {
         await auth.createUserWithEmailAndPassword(email, password);
 
       // Send email verification
-      await credential.user.sendEmailVerification();
+      const actionCodeSettings = {
+  url: "https://jay555522.github.io/royal-crimson-smp/email-verified.html",
+  handleCodeInApp: false
+};
 
+await credential.user.sendEmailVerification(actionCodeSettings);
       // Welcome message
       alert(
         "Welcome to the Royal Crimson SMP!\n\n" +
