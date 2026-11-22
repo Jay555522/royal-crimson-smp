@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome | Royal Crimson SMP</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      font-family: Georgia, serif;
+      background: #17171b;
+      color: #fff;
+    }
+
+    .welcome {
+      width: 100%;
+      max-width: 520px;
+      padding: 40px 25px;
+      text-align: center;
+      background: #242127;
+      border: 2px solid #c8a45b;
+      border-radius: 16px;
+    }
+
+    .crown {
+      font-size: 55px;
+    }
+
+    h1 {
+      color: #e0bd72;
+      font-size: 30px;
+    }
+
+    p {
+      color: #e5e0dc;
+      line-height: 1.7;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 14px 25px;
+      background: #a51c30;
+      color: white;
+      text-decoration: none;
+      border-radius: 7px;
+      font-weight: bold;
+    }
+
+    a:hover {
+      background: #c52a40;
+    }
+  </style>
+</head>
+<body>
+  <main class="welcome">
+    <div class="crown">👑</div>
+
+    <h1>Welcome to the Royal Crimson SMP!</h1>
+
+    <p>
+      Your journey into the Royal Crimson SMP community
+      begins here.
+    </p>
+
+    <p>
+      If you arrived here after completing the Firebase
+      email verification process, your next step is to
+      sign in to your account.
+    </p>
+
+    <a href="member-login.html">Sign In to Your Account</a>
+
+    <p>We look forward to welcoming you to the kingdom!</p>
+
+    <p><strong>— The Royal Crimson SMP</strong></p>
+  </main>
+</body>
+</html>
