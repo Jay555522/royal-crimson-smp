@@ -29,6 +29,7 @@ console.log("Royal Crimson SMP Firebase connected!");
 // MEMBER LOGIN
 // ==========================================
 
+
 const loginForm = document.getElementById("login-form");
 
 if (loginForm) {
@@ -42,15 +43,33 @@ if (loginForm) {
       const credential =
         await auth.signInWithEmailAndPassword(email, password);
 
-      const token = await credential.user.getIdTokenResult(true);
+      const user = credential.user;
+
+      // Check administrator permissions
+      const token = await user.getIdTokenResult(true);
+
+      if (token.claims.admin === true) {
+        alert("Welcome back, Administrator!");
+        window.location.href = "admin-dashboard.html";
+        return;
+      }
+
+      // Require email verification for members
+      if (!user.emailVerified) {
+        await auth.signOut();
+
+        alert(
+          "Email verification required!\n\n" +
+          "Please check your inbox and verify your email " +
+          "before accessing the member dashboard."
+        );
+
+        return;
+      }
 
       alert("Welcome back to the Royal Crimson SMP!");
 
-      if (token.claims.admin === true) {
-        window.location.href = "admin-dashboard.html";
-      } else {
-        window.location.href = "member-dashboard.html";
-      }
+      window.location.href = "member-dashboard.html";
 
     } catch (error) {
       console.error("Login error:", error);
