@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +9,7 @@
   <title>Member Dashboard | Royal Crimson SMP</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     :root {
       --crimson: #a51c3d;
@@ -32,6 +31,8 @@
       line-height: 1.6;
     }
 
+    [hidden] { display: none !important; }
+
     header {
       background: linear-gradient(135deg, var(--deep-crimson), var(--crimson));
       padding: 38px 20px;
@@ -45,9 +46,16 @@
       font-size: clamp(27px, 5vw, 40px);
     }
 
-    header p {
-      color: #f8dce3;
-      margin-bottom: 0;
+    header p { color: #f8dce3; margin-bottom: 0; }
+
+    #access-status {
+      max-width: 650px;
+      margin: 45px auto;
+      padding: 25px;
+      text-align: center;
+      background: var(--panel);
+      border: 1px solid var(--gold);
+      border-radius: 12px;
     }
 
     nav {
@@ -68,9 +76,7 @@
       font-weight: bold;
     }
 
-    nav a:hover {
-      color: white;
-    }
+    nav a:hover { color: white; }
 
     main {
       max-width: 1100px;
@@ -93,10 +99,7 @@
       margin-top: 0;
     }
 
-    .welcome p {
-      max-width: 700px;
-      margin: 12px auto;
-    }
+    .welcome p { max-width: 700px; margin: 12px auto; }
 
     .panel {
       background: var(--panel);
@@ -120,16 +123,14 @@
       font-weight: bold;
     }
 
-    .kingdom-grid,
-    .community-grid {
+    .kingdom-grid, .community-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 17px;
       margin-top: 20px;
     }
 
-    .kingdom-card,
-    .community-card {
+    .kingdom-card, .community-card {
       background: var(--card);
       border: 1px solid #81502e;
       border-radius: 10px;
@@ -140,16 +141,12 @@
       align-items: center;
     }
 
-    .kingdom-card h3,
-    .community-card h3 {
+    .kingdom-card h3, .community-card h3 {
       color: #ffdc91;
       margin-top: 0;
     }
 
-    .kingdom-card p,
-    .community-card p {
-      flex-grow: 1;
-    }
+    .kingdom-card p, .community-card p { flex-grow: 1; }
 
     .card-link {
       display: inline-block;
@@ -163,9 +160,7 @@
       transition: background 0.2s;
     }
 
-    .card-link:hover {
-      background: #b52a4c;
-    }
+    .card-link:hover { background: #b52a4c; }
 
     .announcement {
       background: var(--card);
@@ -176,10 +171,7 @@
       text-align: left;
     }
 
-    .announcement h3 {
-      color: #ffdc91;
-      margin-top: 0;
-    }
+    .announcement h3 { color: #ffdc91; margin-top: 0; }
 
     .announcement p {
       line-height: 1.7;
@@ -187,9 +179,7 @@
       overflow-wrap: anywhere;
     }
 
-    .community-text {
-      line-height: 1.8;
-    }
+    .community-text { line-height: 1.8; }
 
     .signout {
       display: block;
@@ -204,9 +194,7 @@
       cursor: pointer;
     }
 
-    .signout:hover {
-      background: #c02b4e;
-    }
+    .signout:hover { background: #c02b4e; }
 
     footer {
       background: #211019;
@@ -217,37 +205,14 @@
       margin-top: 45px;
     }
 
-    footer strong {
-      color: #f2c66f;
-    }
-
-    footer small {
-      display: block;
-      margin-top: 8px;
-    }
-
-    .site-credit {
-      color: var(--gold);
-      margin-top: 12px;
-    }
+    footer strong { color: #f2c66f; }
+    footer small { display: block; margin-top: 8px; }
 
     @media (max-width: 600px) {
-      header {
-        padding: 28px 15px;
-      }
-
-      nav a {
-        margin: 6px 8px;
-        font-size: 14px;
-      }
-
-      .panel {
-        padding: 19px;
-      }
-
-      .welcome {
-        padding: 30px 17px;
-      }
+      header { padding: 28px 15px; }
+      nav a { margin: 6px 8px; font-size: 14px; }
+      .panel { padding: 19px; }
+      .welcome { padding: 30px 17px; }
     }
   </style>
 </head>
@@ -259,7 +224,12 @@
   <p>Official Member Kingdom Portal</p>
 </header>
 
-<nav aria-label="Member navigation">
+<div id="access-status" role="status">
+  <h2>Checking Member Access...</h2>
+  <p>Please wait while we verify your account.</p>
+</div>
+
+<nav id="member-nav" aria-label="Member navigation" hidden>
   <a href="index.html">Home</a>
   <a href="reigm-empire.html">Reigm</a>
   <a href="zephyrial-empire.html">Zephyrial</a>
@@ -267,7 +237,7 @@
   <a href="security-team.html">Security Team</a>
 </nav>
 
-<main>
+<main id="member-content" hidden>
 
   <section class="welcome">
     <h2>Welcome to the Royal Member Hall</h2>
@@ -276,9 +246,7 @@
       Stay informed, explore the kingdoms, and keep up with the
       latest news from across the server.
     </p>
-    <p>
-      <strong>A Community of Kingdoms. A Legacy of Leadership.</strong>
-    </p>
+    <p><strong>A Community of Kingdoms. A Legacy of Leadership.</strong></p>
   </section>
 
   <section class="panel" id="announcements">
@@ -292,7 +260,8 @@
   <section class="panel" id="account">
     <h2>👤 Your Member Account</h2>
     <p>You are signed in as:</p>
-    <p class="member-email" id="member-email">Loading account...</p>
+    <p class="member-email" id="member-email"></p>
+    <p>Email verification: <strong>Verified</strong></p>
     <p>Thank you for being part of the Royal Crimson SMP.</p>
   </section>
 
@@ -301,7 +270,6 @@
     <p>Visit the official pages of the kingdoms and organizations in our community.</p>
 
     <div class="kingdom-grid">
-
       <article class="kingdom-card">
         <h3>Reigm Empire</h3>
         <p>An Empire of Peace and Justice.</p>
@@ -325,7 +293,6 @@
         <p>Protecting peace across the server.</p>
         <a class="card-link" href="security-team.html">Visit Security Team</a>
       </article>
-
     </div>
   </section>
 
@@ -344,51 +311,33 @@
     </p>
 
     <div class="community-grid">
-
       <article class="community-card">
         <h3>💬 Discord</h3>
         <p>Join the official Royal Crimson SMP Discord community.</p>
-        <a class="card-link"
-           href="https://discord.gg/pt2bNhcgC"
-           target="_blank"
-           rel="noopener noreferrer">
-          Join Discord
-        </a>
+        <a class="card-link" href="https://discord.gg/pt2bNhcgC"
+           target="_blank" rel="noopener noreferrer">Join Discord</a>
       </article>
 
       <article class="community-card">
         <h3>♪ TikTok</h3>
         <p>Follow Royal Crimson SMP on TikTok for community content.</p>
-        <a class="card-link"
-           href="https://www.tiktok.com/@parroptx2634254"
-           target="_blank"
-           rel="noopener noreferrer">
-          Visit TikTok
-        </a>
+        <a class="card-link" href="https://www.tiktok.com/@parroptx2634254"
+           target="_blank" rel="noopener noreferrer">Visit TikTok</a>
       </article>
 
       <article class="community-card">
         <h3>◎ Instagram</h3>
         <p>Follow the official Royal Crimson SMP Instagram account.</p>
-        <a class="card-link"
-           href="https://www.instagram.com/parroptx250/"
-           target="_blank"
-           rel="noopener noreferrer">
-          Visit Instagram
-        </a>
+        <a class="card-link" href="https://www.instagram.com/parroptx250/"
+           target="_blank" rel="noopener noreferrer">Visit Instagram</a>
       </article>
 
       <article class="community-card">
         <h3>▶ YouTube</h3>
         <p>Watch Royal Crimson SMP videos, adventures, and server content.</p>
-        <a class="card-link"
-           href="https://www.youtube.com/@ReigmEmpire24"
-           target="_blank"
-           rel="noopener noreferrer">
-          Watch YouTube
-        </a>
+        <a class="card-link" href="https://www.youtube.com/@ReigmEmpire24"
+           target="_blank" rel="noopener noreferrer">Watch YouTube</a>
       </article>
-
     </div>
   </section>
 
@@ -396,45 +345,73 @@
 
 </main>
 
-<footer>
+<footer id="member-footer" hidden>
   <p><strong>The Royal Crimson SMP</strong></p>
   <p>A Community of Kingdoms. A Legacy of Leadership.</p>
   <small>Official Member Portal</small>
   <small>By LegoMan1927</small>
 </footer>
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-<script src="firebase-auth.js"></script>
 
 <script>
-  // Check member authentication
-  auth.onAuthStateChanged(function(user) {
-    if (user) {
-      document.getElementById("member-email").textContent = user.email;
-    } else {
-      window.location.href = "member-login.html";
-    }
-  });
+  // Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCJO3ZaNIbPaUGcWNc188lMQu-vxmtJoBE",
+    authDomain: "royal-crimson-smp-fca07.firebaseapp.com",
+    projectId: "royal-crimson-smp-fca07",
+    storageBucket: "royal-crimson-smp-fca07.firebasestorage.app",
+    messagingSenderId: "808848347213",
+    appId: "1:808848347213:web:ecaa27424b84750ae40c04",
+    measurementId: "G-1KH5B89S3X"
+  };
 
-  // Sign out
-  document.getElementById("logout-button").addEventListener("click", function() {
-    auth.signOut().then(function() {
-      window.location.href = "member-login.html";
-    }).catch(function(error) {
-      alert("Sign out failed: " + error.message);
-    });
-  });
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
 
-  // Load official announcements from Firestore
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  const accessStatus = document.getElementById("access-status");
+  const memberContent = document.getElementById("member-content");
+  const memberNav = document.getElementById("member-nav");
+  const memberFooter = document.getElementById("member-footer");
+  const memberEmail = document.getElementById("member-email");
   const announcementsList = document.getElementById("announcements-list");
 
-  firebase.firestore().collection("announcements")
-    .orderBy("createdAt", "desc")
-    .get()
-    .then(function(snapshot) {
+  // Keep the dashboard hidden until access is confirmed
+  function showDashboard(user) {
+    accessStatus.hidden = true;
+    memberContent.hidden = false;
+    memberNav.hidden = false;
+    memberFooter.hidden = false;
+    memberEmail.textContent = user.email || "Member";
+  }
+
+  function redirectToLogin(message) {
+    accessStatus.innerHTML = "";
+    const heading = document.createElement("h2");
+    const paragraph = document.createElement("p");
+
+    heading.textContent = "Member Access Required";
+    paragraph.textContent = message;
+
+    accessStatus.appendChild(heading);
+    accessStatus.appendChild(paragraph);
+
+    window.location.replace("member-login.html");
+  }
+
+  // Load announcements only after the member is verified
+  async function loadAnnouncements() {
+    try {
+      const snapshot = await db.collection("announcements")
+        .orderBy("createdAt", "desc")
+        .get();
+
       announcementsList.innerHTML = "";
 
       if (snapshot.empty) {
@@ -458,11 +435,54 @@
         item.appendChild(message);
         announcementsList.appendChild(item);
       });
-    })
-    .catch(function(error) {
+
+    } catch (error) {
       console.error("Announcement loading error:", error);
       announcementsList.textContent = "Unable to load announcements.";
-    });
+    }
+  }
+
+  // Check authentication and email verification
+  auth.onAuthStateChanged(async function(user) {
+    if (!user) {
+      redirectToLogin("Please sign in to access the member portal.");
+      return;
+    }
+
+    try {
+      // Refresh account information from Firebase
+      await user.reload();
+
+      const currentUser = auth.currentUser;
+
+      if (!currentUser || !currentUser.emailVerified) {
+        redirectToLogin(
+          "Please verify your email address before accessing the member portal."
+        );
+        return;
+      }
+
+      showDashboard(currentUser);
+      await loadAnnouncements();
+
+    } catch (error) {
+      console.error("Account verification error:", error);
+      accessStatus.textContent =
+        "We couldn't verify your account. Please sign in again.";
+      await auth.signOut();
+      window.location.replace("member-login.html");
+    }
+  });
+
+  // Sign out
+  document.getElementById("logout-button").addEventListener("click", async function() {
+    try {
+      await auth.signOut();
+      window.location.replace("member-login.html");
+    } catch (error) {
+      alert("Sign out failed: " + error.message);
+    }
+  });
 </script>
 
 </body>
